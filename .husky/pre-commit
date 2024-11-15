@@ -24,4 +24,6 @@ do
     git add "${FILE}";
 done;
 
+git push
+
 exit 0;
