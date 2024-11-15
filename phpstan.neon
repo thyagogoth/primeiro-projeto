@@ -1,0 +1,18 @@
+includes:
+    - ./vendor/larastan/larastan/extension.neon
+parameters:
+
+    paths:
+        - app/
+
+    # level 9 is the highest level of strictness
+    level: 6
+
+# ignoreErrors:
+#     - '#Unsafe usage of new static#'
+#
+# excludePaths:
+#     - '*/tests/*'
+#     - ./*/*/FileToBeExcluded.php
+#
+# checkingMissingIterableValueType: false
