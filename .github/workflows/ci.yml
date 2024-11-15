@@ -26,14 +26,17 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+    - name: Build Assets
+      run: yarn && yarn build
+
     - name: Execute tests (Unit and Feature tests) via PEST
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: php artisan test --parallel
-      
+
     - name: Execute Larastan
       run: vendor/bin/phpstan analyse
-      
-    - name: Execute Laravel Pint
+
+    - name: Execute Laravel Pint (only test)
       run: vendor/bin/pint --test
