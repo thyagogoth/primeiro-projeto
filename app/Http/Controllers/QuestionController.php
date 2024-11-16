@@ -12,7 +12,11 @@ class QuestionController extends Controller
 
         $attributes = request()->validate([
             //            required|min:10|max:255|ends_with:?
-            'question' => 'required',
+            'question' => [
+                'required',
+                'min:10',
+                'ends_with:?',
+            ],
         ]);
 
         $question = Question::query()
