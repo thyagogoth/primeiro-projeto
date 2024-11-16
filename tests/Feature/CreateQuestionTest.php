@@ -20,7 +20,7 @@ it('should be able to create a new question bigger than 255 characters', functio
     assertDatabaseHas('questions', ['question' => str_repeat('*', 260) . '?']);
 });
 
-test('it should to check if question is less than 10 characteres', function () {
+test('it should check if question is less than 10 characteres', function () {
     $user = User::factory()->create();
     actingAs($user);
 
@@ -32,14 +32,26 @@ test('it should to check if question is less than 10 characteres', function () {
     assertDatabaseCount('questions', 0);
 });
 
-test('it should to check if ends with question mark "?"', function () {
+test('it should check if ends with question mark "?"', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
     $request = post(route('question.store'), [
-        'question' => 'this is not a question?',
+        'question' => str_repeat('*', 10),
     ]);
 
-    $request->assertRedirect(route('dashboard'));
-
+    $request->assertSessionHasErrors(['question' => 'Are you sure this is a question?']);
+    assertDatabaseCount('questions', 0);
 });
+
+//test('it should check if ends with question mark "?"', function () {
+//    $request = post(route('question.store'), [
+//        'question' => 'this is not a question?',
+//    ]);
+//
+//    $request->assertRedirect(route('dashboard'));
+//
+//});
 
 test('should have at least 10 characters', function () {
     $response = post('question.create', [

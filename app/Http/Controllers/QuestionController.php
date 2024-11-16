@@ -15,7 +15,12 @@ class QuestionController extends Controller
             'question' => [
                 'required',
                 'min:10',
-                'ends_with:?',
+                //                'ends_with:?',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    if (str_ends_with($value, '?') === false) {
+                        $fail(__('Are you sure this is a question?'));
+                    }
+                },
             ],
         ]);
 
