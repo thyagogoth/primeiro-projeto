@@ -12,7 +12,7 @@ class QuestionController extends Controller
     {
 
         Question::query()
-                ->create($request->validated);
+                ->create($request->validated());
 
         return to_route('dashboard');
     }
